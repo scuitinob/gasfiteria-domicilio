@@ -8,7 +8,7 @@
   Para volver a publicar la web completa solo cambia esa variable a "live".
 */
 window.SITE_CONFIG = {
-  siteMode: "maintenance",
+  siteMode: "live",
 
   whatsappNumber: "56964924530",
   whatsappMessage: "Hola, vi su página gasfiteriadomicilio.cl y quisiera consultar por un servicio de gasfitería a domicilio en Santiago.",
@@ -19,11 +19,11 @@ window.SITE_CONFIG = {
     Ejemplo: destapes: "assets/img/servicios/destapes.webp"
   */
   serviceImages: {
-    destapes: "",
-    fugasAgua: "",
-    fugasGas: "",
-    calefon: ""
-  },
+    destapes: "assets/img/servicios/destapes.webp",
+    fugasAgua: "assets/img/servicios/fugas-agua.webp",
+    fugasGas: "assets/img/servicios/fugas-gas.webp",
+    calefon: "assets/img/servicios/calefon.webp"
+},
 
   /* Galería opcional de trabajos realizados */
   galleryImages: [
