@@ -1,21 +1,12 @@
 (() => {
   const config = window.SITE_CONFIG || {};
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.querySelector('#nav-menu');
+  const mode = config.siteMode === 'maintenance' ? 'maintenance' : 'live';
+  document.documentElement.dataset.siteMode = mode;
 
-  navToggle?.addEventListener('click', () => {
-    const open = navMenu.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', String(open));
-    navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-  });
-
-  document.querySelectorAll('#nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      navMenu.classList.remove('open');
-      navToggle?.setAttribute('aria-expanded', 'false');
-      navToggle?.setAttribute('aria-label', 'Abrir menú');
-    });
-  });
+  const robots = document.querySelector('meta[name="robots"]');
+  if (robots && mode === 'maintenance') {
+    robots.setAttribute('content', 'noindex,nofollow,noarchive');
+  }
 
   const validWhatsApp = /^\d{8,15}$/.test(config.whatsappNumber || '');
   const waUrl = validWhatsApp
@@ -39,14 +30,43 @@
     } catch (_) {}
   }
 
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('#nav-menu');
+
+  navToggle?.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  });
+
+  document.querySelectorAll('#nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu?.classList.remove('open');
+      navToggle?.setAttribute('aria-expanded', 'false');
+      navToggle?.setAttribute('aria-label', 'Abrir menú');
+    });
+  });
+
+  const serviceImages = config.serviceImages || {};
+  document.querySelectorAll('[data-service-image]').forEach(wrapper => {
+    const key = wrapper.dataset.serviceImage;
+    const src = serviceImages[key];
+    if (!src) return;
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = wrapper.dataset.alt || 'Servicio de gasfitería a domicilio en Santiago';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    wrapper.replaceChildren(img);
+    wrapper.classList.add('has-image');
+  });
+
   const gallery = document.querySelector('#gallery-grid');
   const images = Array.isArray(config.galleryImages) ? config.galleryImages : [];
   if (gallery) {
     if (!images.length) {
-      gallery.innerHTML = `
-        <div class="gallery-empty reveal visible">
-          <div><strong>La galería está lista.</strong><br>Agrega las fotografías de trabajos en <code>assets/img/galeria/</code> y decláralas en <code>assets/js/config.js</code>.</div>
-        </div>`;
+      gallery.closest('.gallery-section')?.classList.add('gallery-is-empty');
     } else {
       const fragment = document.createDocumentFragment();
       images.forEach((item, index) => {
@@ -54,7 +74,7 @@
         figure.className = 'gallery-item reveal';
         const img = document.createElement('img');
         img.src = item.src;
-        img.alt = item.alt || item.title || 'Trabajo de gasfitería a domicilio';
+        img.alt = item.alt || item.title || 'Trabajo de gasfitería a domicilio en Santiago';
         img.loading = index < 3 ? 'eager' : 'lazy';
         img.decoding = 'async';
         const caption = document.createElement('figcaption');
@@ -67,7 +87,9 @@
     }
   }
 
-  document.querySelector('#year').textContent = new Date().getFullYear();
+  document.querySelectorAll('[data-year]').forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
 
   const revealItems = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {

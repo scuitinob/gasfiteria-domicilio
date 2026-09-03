@@ -1,16 +1,32 @@
 /*
   CONFIGURACIÓN RÁPIDA DEL SITIO
-  1) Reemplaza whatsappNumber por el número real en formato internacional, SIN + ni espacios.
-     Ejemplo Chile: 56912345678
-  2) Edita whatsappMessage si quieres cambiar el mensaje prellenado.
-  3) Para la galería, copia imágenes dentro de assets/img/galeria/ y agrega/quita objetos en galleryImages.
+
+  siteMode:
+    "live"        = muestra la web completa.
+    "maintenance" = muestra la página provisoria de mantenimiento.
+
+  Para volver a publicar la web completa solo cambia esa variable a "live".
 */
 window.SITE_CONFIG = {
-  whatsappNumber: "569XXXXXXXX",
-  whatsappMessage: "Hola, vi su página gasfiteriadomicilio.cl y quisiera consultar por un servicio de gasfitería a domicilio.",
+  siteMode: "maintenance",
+
+  whatsappNumber: "56964924530",
+  whatsappMessage: "Hola, vi su página gasfiteriadomicilio.cl y quisiera consultar por un servicio de gasfitería a domicilio en Santiago.",
+
+  /*
+    Fotografías de las tarjetas de servicios.
+    Cuando tengas las imágenes, guárdalas en assets/img/servicios/ y completa las rutas.
+    Ejemplo: destapes: "assets/img/servicios/destapes.webp"
+  */
+  serviceImages: {
+    destapes: "",
+    fugasAgua: "",
+    fugasGas: "",
+    calefon: ""
+  },
+
+  /* Galería opcional de trabajos realizados */
   galleryImages: [
-    // Ejemplo:
-    // { src: "assets/img/galeria/cambio-griferia.webp", alt: "Cambio de grifería de lavaplatos", title: "Cambio de grifería" },
-    // { src: "assets/img/galeria/reparacion-fuga.webp", alt: "Reparación de fuga en cañería", title: "Reparación de fuga" }
+    // { src: "assets/img/galeria/trabajo-01.webp", alt: "Reparación de fuga de agua en Santiago", title: "Reparación de fuga" }
   ]
 };
