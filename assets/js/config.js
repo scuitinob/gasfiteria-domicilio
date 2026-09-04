@@ -8,7 +8,7 @@
   Para volver a publicar la web completa solo cambia esa variable a "live".
 */
 window.SITE_CONFIG = {
-  siteMode: "live",
+  siteMode: "maintenance",
 
   whatsappNumber: "56964924530",
   whatsappMessage: "Hola, vi su página gasfiteriadomicilio.cl y quisiera consultar por un servicio de gasfitería a domicilio en Santiago.",
