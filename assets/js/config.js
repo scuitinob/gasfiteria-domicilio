@@ -11,7 +11,7 @@ window.SITE_CONFIG = {
   siteMode: "maintenance",
 
   whatsappNumber: "56964924530",
-  whatsappMessage: "Hola, vi su página gasfiteriadomicilio.cl y quisiera consultar por un servicio de gasfitería a domicilio en Santiago.",
+  whatsappMessage: "¡Hola! Me interesa solicitar un servicio de gasfitería",
 
   /*
     Fotografías de las tarjetas de servicios.
