@@ -1,12 +1,5 @@
 (() => {
   const config = window.SITE_CONFIG || {};
-  const mode = config.siteMode === 'maintenance' ? 'maintenance' : 'live';
-  document.documentElement.dataset.siteMode = mode;
-
-  const robots = document.querySelector('meta[name="robots"]');
-  if (robots && mode === 'maintenance') {
-    robots.setAttribute('content', 'noindex,nofollow,noarchive');
-  }
 
   const validWhatsApp = /^\d{8,15}$/.test(config.whatsappNumber || '');
   const waUrl = validWhatsApp
@@ -64,25 +57,31 @@
 
   const gallery = document.querySelector('#gallery-grid');
   const images = Array.isArray(config.galleryImages) ? config.galleryImages : [];
+
   if (gallery) {
     if (!images.length) {
       gallery.closest('.gallery-section')?.classList.add('gallery-is-empty');
     } else {
       const fragment = document.createDocumentFragment();
+
       images.forEach((item, index) => {
         const figure = document.createElement('figure');
         figure.className = 'gallery-item reveal';
+
         const img = document.createElement('img');
         img.src = item.src;
         img.alt = item.alt || item.title || 'Trabajo de gasfitería a domicilio en Santiago';
         img.loading = index < 3 ? 'eager' : 'lazy';
         img.decoding = 'async';
+
         const caption = document.createElement('figcaption');
         caption.className = 'gallery-caption';
         caption.textContent = item.title || 'Trabajo realizado';
+
         figure.append(img, caption);
         fragment.appendChild(figure);
       });
+
       gallery.appendChild(fragment);
     }
   }
@@ -92,6 +91,7 @@
   });
 
   const revealItems = document.querySelectorAll('.reveal');
+
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -101,6 +101,7 @@
         }
       });
     }, { threshold: 0.12 });
+
     revealItems.forEach(el => observer.observe(el));
   } else {
     revealItems.forEach(el => el.classList.add('visible'));
